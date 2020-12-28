@@ -66,6 +66,7 @@ const ChangeModal = ({
   };
   const modalOk = () => {
     closeModal();
+    setModalValue("");
     changeTreeValue(modalValue, key);
   };
   useEffect(() => {
@@ -74,10 +75,16 @@ const ChangeModal = ({
   useEffect(() => {
     setModalVisible(visible);
   }, [visible]);
+  useEffect(() => {
+    setModalValue("");
+  }, []);
   return (
     <Modal
       visible={modalVisible}
-      onCancel={closeModal}
+      onCancel={() => {
+        setModalValue("");
+        closeModal();
+      }}
       maskClosable={false}
       onOk={modalOk}
     >
@@ -91,6 +98,7 @@ const TreeDom = () => {
   const [visible, setVisible] = useState(false);
   const [currentValue, setCurrentValue] = useState({});
   const [addFlag, setAddFlag] = useState(false);
+  const [samePath, setSamePath] = useState(false);
 
   const renderTreeDom = (node) => {
     node.map((item) => {
@@ -111,9 +119,29 @@ const TreeDom = () => {
               setVisible(true);
               setAddFlag(true);
               setCurrentValue(item);
+              setSamePath(false);
             }}
           >
             添加子节点
+          </Button>
+          <Button
+            onClick={() => {
+              setVisible(true);
+              setAddFlag(true);
+              setCurrentValue(item);
+              setSamePath(true);
+            }}
+          >
+            添加同级节点
+          </Button>
+          <Button
+            onClick={() => {
+              deleteTreeDom(item.key, treeData);
+              renderTreeDom(treeData);
+              setTreeData([...treeData]);
+            }}
+          >
+            删除
           </Button>
         </div>
       );
@@ -121,6 +149,16 @@ const TreeDom = () => {
         return renderTreeDom(item.children);
       }
       return item;
+    });
+  };
+
+  const deleteTreeDom = (key, node) => {
+    node.map((item, index) => {
+      if (item.key === key) {
+        node.splice(index, 1);
+      } else if (item.children) {
+        return deleteTreeDom(key, item.children);
+      }
     });
   };
 
@@ -140,12 +178,16 @@ const TreeDom = () => {
   const addTreeNode = (node, value, key) => {
     let timeStamp = new Date().getTime();
     node.map((item, index) => {
+      let newItem = { value, title: value, key: timeStamp };
       if (item.key === key) {
-        let newItem = { value, title: value, key: timeStamp };
-        if (item.children) {
-          item.children.push(newItem);
+        if (!samePath) {
+          if (item.children) {
+            item.children.push(newItem);
+          } else {
+            item.children = [newItem];
+          }
         } else {
-          item.children = [newItem];
+          node.splice(index + 1, 0, newItem);
         }
       } else if (item.children) {
         return addTreeNode(item.children, value, key);

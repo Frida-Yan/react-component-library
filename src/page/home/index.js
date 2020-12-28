@@ -9,6 +9,9 @@ const HomePage = () => {
         <li>
           <Link to="/tree">tree</Link>{" "}
         </li>
+        <li>
+          <Link to="/portals">portals</Link>
+        </li>
       </ul>
     </div>
   );

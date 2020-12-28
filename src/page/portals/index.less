@@ -1,0 +1,45 @@
+.modal{
+    position: fixed;
+    .modal-mask{
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 3;
+        background: rgba(0, 0, 0, 0.4);
+    }
+    .modal-warp{
+        position: fixed;
+        background: #fff;
+        z-index: 4;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 360px;
+        padding: 24px;
+        padding-top: 40px;
+        border-radius: 6px;
+    }
+    .modal-foot{
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        button{
+            margin-left: 10px;
+        }
+    }
+    .modal-close{
+        position: absolute;
+        top: 13px;
+        right: 0px;
+        transform: rotate(45deg);
+        font-size: 24px;
+        display: block;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+}
