@@ -1,7 +1,8 @@
-import React from "react";
-import App from "../App";
-import Tree from "../page/tree";
-import Portals from "../page/portals";
+import React from "react"
+import App from "../App"
+import Tree from "../page/tree"
+import Portals from "../page/portals"
+import TagsList from "../page/tagsList"
 
 const Router = [
   {
@@ -16,5 +17,9 @@ const Router = [
     path: "/portals",
     component: Portals,
   },
-];
-export default Router;
+  {
+    path: "/tagsList",
+    component: TagsList,
+  },
+]
+export default Router

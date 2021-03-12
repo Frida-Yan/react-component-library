@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import ReactDom from "react-dom";
-import { Button } from "antd";
-import "./index.less";
+import React, { useState, useEffect } from "react"
+import ReactDom from "react-dom"
+import { Button } from "antd"
+import "./index.less"
 
 const Modal = (props) => {
   // 遮罩 wrap container
@@ -11,7 +11,6 @@ const Modal = (props) => {
   // Modal.confirm({...props})
 
   // ...other
-
   const {
     title,
     children,
@@ -21,23 +20,24 @@ const Modal = (props) => {
     onCancel = () => {},
     footer,
     name,
-  } = props;
+  } = props
 
-  const [modalVisible, setModalVisible] = useState(visible);
+  const [modalVisible, setModalVisible] = useState(visible)
   useEffect(() => {
-    setModalVisible(visible);
-  }, [visible]);
+    setModalVisible(visible)
+    console.log(visible, "visible")
+  }, [visible])
 
   const _onCancel = () => {
-    setModalVisible(false);
-    onCancel();
-  };
+    setModalVisible(false)
+    onCancel()
+  }
 
   const _onOk = () => {
-    setModalVisible(false);
-    onOk();
-    onCancel();
-  };
+    setModalVisible(false)
+    onOk()
+    onCancel()
+  }
 
   const renderFooter = () => {
     if (name === "confirm") {
@@ -47,9 +47,9 @@ const Modal = (props) => {
             ok
           </Button>
         </div>
-      );
+      )
     } else if (footer) {
-      return footer;
+      return footer
     }
     return (
       <div>
@@ -60,8 +60,8 @@ const Modal = (props) => {
           cancel
         </Button>
       </div>
-    );
-  };
+    )
+  }
 
   const renderModalContent = () => (
     <div className="modal" style={{ display: modalVisible ? "block" : "none" }}>
@@ -79,97 +79,99 @@ const Modal = (props) => {
         </div>
       </div>
     </div>
-  );
+  )
   return ReactDom.createPortal(
     renderModalContent(),
-    document.querySelector("body")
-  );
-};
+    document.querySelector("#app")
+  )
+}
 
-const HocModal = (Component) => {
-  return ({
-    visible,
-    footer,
-    closable,
-    okText = "ok",
-    okType = "primary",
-    onOk = () => {},
-    onCancel = () => {},
-    maskClosable = false,
-    content = "content",
-    name,
-    ...props
-  }) => {
-    const _onOk = () => {
-      onOk();
-    };
-    const _onCancel = () => {
-      onCancel();
-    };
-    const Footer = () =>
-      name === "confirm" ? undefined : (
-        <Button type={okType} onClick={_onOk}>
-          {okText}
-        </Button>
-      );
-    return (
-      <Component
-        okText={okText}
-        closable={false}
-        maskClosable={maskClosable}
-        onOk={_onOk}
-        onCancel={_onCancel}
-        children={content}
-        okType={okType}
-        visible
-        footer={Footer()}
-        name={name}
-        {...props}
-      />
-    );
-  };
-};
-["confirm", "info", "success", "error", "warning"].forEach((item) => {
-  Modal[item] = (props) => {
-    let div = document.createElement("div");
-    let currentConfig = Object.assign({}, props);
-    document.body.appendChild(div);
-    const FunModal = HocModal(Modal);
-    const destroy = () => {
-      const unmountResult = ReactDom.unmountComponentAtNode(div);
-      if (unmountResult && div.parentNode) {
-        div.parentNode.removeChild(div);
-      }
-    };
-    const render = (config) => {
-      ReactDom.render(
-        <FunModal destroy={destroy} name={item} {...config} />,
-        div
-      );
-    };
-    const update = (newConfig) => {
-      currentConfig = Object.assign({}, currentConfig, newConfig);
-      render(currentConfig);
-    };
-    render(currentConfig);
-    return {
-      destroy,
-      update,
-    };
-  };
-});
-const Father = () => {
-  const [visible, setVisible] = useState(false);
+// const HocModal = (Component) => {
+//   return ({
+//     visible,
+//     footer,
+//     closable,
+//     okText = "ok",
+//     okType = "primary",
+//     onOk = () => {},
+//     onCancel = () => {},
+//     maskClosable = false,
+//     content = "content",
+//     name,
+//     ...props
+//   }) => {
+//     const _onOk = () => {
+//       onOk()
+//     }
+//     const _onCancel = () => {
+//       onCancel()
+//     }
+//     const Footer = () =>
+//       name === "confirm" ? undefined : (
+//         <Button type={okType} onClick={_onOk}>
+//           {okText}
+//         </Button>
+//       )
+//     return (
+//       <Component
+//         okText={okText}
+//         closable={false}
+//         maskClosable={maskClosable}
+//         onOk={_onOk}
+//         onCancel={_onCancel}
+//         children={content}
+//         okType={okType}
+//         visible
+//         footer={Footer()}
+//         name={name}
+//         {...props}
+//       />
+//     )
+//   }
+// }
+// ["confirm", "info", "success", "error", "warning"].forEach((item) => {
+//   Modal[item] = (props) => {
+//     let div = document.createElement("div")
+//     let currentConfig = Object.assign({}, props)
+//     document.body.appendChild(div)
+//     const FunModal = HocModal(Modal)
+//     const destroy = () => {
+//       const unmountResult = ReactDom.unmountComponentAtNode(div)
+//       if (unmountResult && div.parentNode) {
+//         div.parentNode.removeChild(div)
+//       }
+//     }
+//     const render = (config) => {
+//       ReactDom.render(
+//         <FunModal destroy={destroy} name={item} {...config} />,
+//         div
+//       )
+//     }
+//     const update = (newConfig) => {
+//       currentConfig = Object.assign({}, currentConfig, newConfig)
+//       render(currentConfig)
+//     }
+//     render(currentConfig)
+//     return {
+//       destroy,
+//       update,
+//     }
+//   }
+// })
+const Father = (props) => {
+  const [visible, setVisible] = useState(false)
+
   const onConfirm = () => {
     Modal.confirm({
       title: "这是confirm弹窗",
-    });
-  };
+    })
+  }
+  console.log(visible, "visible")
   return (
     <>
       <Button
         onClick={() => {
-          setVisible(true);
+          setVisible(true)
         }}
       >
         手写一个modal,点击打开弹窗
@@ -177,14 +179,14 @@ const Father = () => {
       <Button onClick={onConfirm}>confirm弹窗</Button>
       <Modal
         visible={visible}
-        onClose={() => {
-          setVisible(false);
+        onCancel={() => {
+          setVisible(false)
         }}
       >
         <div>这是要展示的内容啦</div>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default Father;
+export default Father
