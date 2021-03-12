@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Input, Tag } from "antd"
-const MAX_LENGTH = 3
+const MAX_LENGTH = 100
 
 const TagsList = ({ value, onChange = () => {} }) => {
   const [list, setList] = useState([])
@@ -8,17 +8,8 @@ const TagsList = ({ value, onChange = () => {} }) => {
     if (!value) return
     if (list.length > MAX_LENGTH) return
     let res = []
-    if (/,|，/.test(value)) {
-      let splitArr = value.split(",")
-      res = splitArr.reduce((result, item) => {
-        return item.includes("，")
-          ? result.concat(item.split("，"))
-          : result.concat([item])
-      }, [])
-      res = res.filter((item) => item)
-    } else {
-      res.push(value)
-    }
+    let str = value.replace(/，/g, ",")
+    res = str.split(",").filter((item) => item)
     res =
       list.length + res.length > MAX_LENGTH
         ? res.slice(0, MAX_LENGTH - list.length)
