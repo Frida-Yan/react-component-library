@@ -1,9 +1,10 @@
-import React from "react"
-import App from "../App"
-import Tree from "../page/tree"
-import Portals from "../page/portals"
-import TagsList from "../page/tagsList"
-import Tooltip from "../page/tooltip"
+import React from "react";
+import App from "../App";
+import Tree from "../page/tree";
+import Portals from "../page/portals";
+import TagsList from "../page/tagsList";
+import Tooltip from "../page/tooltip";
+import SearchList from "../page/searchList";
 
 const Router = [
   {
@@ -26,5 +27,9 @@ const Router = [
     path: "/tooltip",
     component: Tooltip,
   },
-]
-export default Router
+  {
+    path: "/searchList",
+    component: SearchList,
+  },
+];
+export default Router;
