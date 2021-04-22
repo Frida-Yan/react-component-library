@@ -21,6 +21,9 @@ const HomePage = (list) => {
         <li>
           <Link to="/searchList">searchList</Link>
         </li>
+        <li>
+          <Link to="/calculator">calculator</Link>
+        </li>
       </ul>
     </div>
   );

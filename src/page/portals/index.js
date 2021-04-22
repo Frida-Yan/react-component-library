@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
-import ReactDom from "react-dom"
-import { Button } from "antd"
-import "./index.less"
+import React, { useState, useEffect } from "react";
+import ReactDom from "react-dom";
+import { Button } from "antd";
+import "./index.less";
 
 const Modal = (props) => {
   // 遮罩 wrap container
@@ -20,24 +20,23 @@ const Modal = (props) => {
     onCancel = () => {},
     footer,
     name,
-  } = props
+  } = props;
 
-  const [modalVisible, setModalVisible] = useState(visible)
+  const [modalVisible, setModalVisible] = useState(visible);
   useEffect(() => {
-    setModalVisible(visible)
-    console.log(visible, "visible")
-  }, [visible])
+    setModalVisible(visible);
+  }, [visible]);
 
   const _onCancel = () => {
-    setModalVisible(false)
-    onCancel()
-  }
+    setModalVisible(false);
+    onCancel();
+  };
 
   const _onOk = () => {
-    setModalVisible(false)
-    onOk()
-    onCancel()
-  }
+    setModalVisible(false);
+    onOk();
+    onCancel();
+  };
 
   const renderFooter = () => {
     if (name === "confirm") {
@@ -47,9 +46,9 @@ const Modal = (props) => {
             ok
           </Button>
         </div>
-      )
+      );
     } else if (footer) {
-      return footer
+      return footer;
     }
     return (
       <div>
@@ -60,8 +59,8 @@ const Modal = (props) => {
           cancel
         </Button>
       </div>
-    )
-  }
+    );
+  };
 
   const renderModalContent = () => (
     <div className="modal" style={{ display: modalVisible ? "block" : "none" }}>
@@ -79,12 +78,12 @@ const Modal = (props) => {
         </div>
       </div>
     </div>
-  )
+  );
   return ReactDom.createPortal(
     renderModalContent(),
     document.querySelector("#app")
-  )
-}
+  );
+};
 
 // const HocModal = (Component) => {
 //   return ({
@@ -159,19 +158,18 @@ const Modal = (props) => {
 //   }
 // })
 const Father = (props) => {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   const onConfirm = () => {
     Modal.confirm({
       title: "这是confirm弹窗",
-    })
-  }
-  console.log(visible, "visible")
+    });
+  };
   return (
     <>
       <Button
         onClick={() => {
-          setVisible(true)
+          setVisible(true);
         }}
       >
         手写一个modal,点击打开弹窗
@@ -180,13 +178,13 @@ const Father = (props) => {
       <Modal
         visible={visible}
         onCancel={() => {
-          setVisible(false)
+          setVisible(false);
         }}
       >
         <div>这是要展示的内容啦</div>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Father
+export default Father;

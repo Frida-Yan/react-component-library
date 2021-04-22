@@ -13,9 +13,10 @@ const list = [
   { title: "Luke" },
 ];
 var t = null;
-const SearchList = () => {
+const SearchList = ({ names }) => {
   const [defaultList] = useState(list);
-  const [curList, setCurList] = useState(list);
+  const [curList, setCurList] = useState(names);
+  // 搜索  做了防抖，每300毫秒查询一次
   const searchTitle = (e) => {
     clearTimeout(t);
     t = setTimeout(() => {

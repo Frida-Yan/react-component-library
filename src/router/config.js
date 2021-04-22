@@ -5,6 +5,7 @@ import Portals from "../page/portals";
 import TagsList from "../page/tagsList";
 import Tooltip from "../page/tooltip";
 import SearchList from "../page/searchList";
+import Calculator from "../page/calculator";
 
 const Router = [
   {
@@ -30,6 +31,10 @@ const Router = [
   {
     path: "/searchList",
     component: SearchList,
+  },
+  {
+    path: "/calculator",
+    component: Calculator,
   },
 ];
 export default Router;
