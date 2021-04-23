@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import cx from "classnames";
 import { Input } from "antd";
 import "./index.less";
 const MAX_LENGTH = 13;
@@ -19,22 +20,22 @@ const UNIT_MAP = {
 
 const Calculator = () => {
   const [number, setNumber] = useState("");
+  const [cashFlag, setCashFlag] = useState(true);
+  const [freeCount, setFreeCount] = useState(3000);
+  const [quotaCount, setQuotaCount] = useState(1000);
 
   const changeValue = (value) => {
     let str = number + value;
-    if (value === "." && str.includes(".")) return;
     if (str.length > MAX_LENGTH) return;
-
-    // if (str.includes(".") && str[0] !== ".") {
-    //   let pointIndex = str.indexOf(".");
-    //   let pointStr = str.substring(pointIndex, str.length - 1);
-    //   console.log(pointStr, "pointStr");
-    //   if (pointStr.length > POINT_MANLENGTH) return;
-    // }
-    // if (str.length > MAX_LENGTH) return;
-    // setNumber(str);
+    if (str.includes(".")) {
+      if (str[0] !== ".") {
+        let pointIndex = str.indexOf(".");
+        let pointStr = str.substring(pointIndex, str.length - 1);
+        if (pointStr.length > POINT_MANLENGTH) return;
+      }
+    }
+    setNumber(str);
   };
-
   const clearNumber = () => {
     setNumber("");
   };
@@ -44,15 +45,45 @@ const Calculator = () => {
     setNumber(str);
   };
 
+  const getMoney = () => {
+    if (!cashFlag) return;
+    let flag = /(?:^[1-9]([0-9]+)?(?:\.[0-9]{1,2})?$)|(?:^(?:0)$)|(?:^[0-9]\.[0-9](?:[0-9])?$)/.test(
+      number
+    );
+    if (!flag) {
+      alert("金额格式不正确");
+      return;
+    }
+    alert(number);
+    setFreeCount(freeCount - number);
+    setQuotaCount(number > quotaCount ? 0 : quotaCount - number);
+    setNumber("");
+  };
+
   const unit = useMemo(() => {
-    if ("0.".includes(number[0]) || !number) return;
-    let roundNumber = parseInt(number).toString();
-    let unitStr = roundNumber.length > 2 ? UNIT_MAP[roundNumber.length] : "";
+    let unitStr = "";
+    let flag = /(?:^[1-9]([0-9]+)?(?:\.[0-9]{1,2})?$)|(?:^(?:0)$)|(?:^[0-9]\.[0-9](?:[0-9])?$)/.test(
+      number
+    );
+    if (flag) {
+      let roundNumber = parseInt(number).toString();
+      unitStr = roundNumber.length > 2 ? UNIT_MAP[roundNumber.length] : "";
+    }
     return unitStr;
   }, [number]);
 
   const message = useMemo(() => {
-    // if()
+    let messageStr = `免费额度还剩${quotaCount}元，超出部分收取0.1%手续费`;
+    if (parseFloat(number) > quotaCount && parseFloat(number) < freeCount) {
+      messageStr = `预计收取手续费￥${(number - quotaCount) * 0.001}元`;
+    }
+    if (parseFloat(number) > freeCount) {
+      messageStr = "超出可用金额";
+      setCashFlag(false);
+    } else {
+      setCashFlag(true);
+    }
+    return messageStr;
   }, [number]);
 
   return (
@@ -67,7 +98,11 @@ const Calculator = () => {
             X
           </span>
         </div>
-        <div className="message">提现金额巴拉啦</div>
+        <div
+          className={cx("message", { wrong: parseFloat(number) > freeCount })}
+        >
+          {message}
+        </div>
       </div>
       <div className="key-board">
         <div className="arrow">隐藏</div>
@@ -85,7 +120,9 @@ const Calculator = () => {
               {item}
             </div>
           ))}
-          <div className="item cash">提现</div>
+          <div className="item cash" onClick={getMoney}>
+            提现
+          </div>
           <div className="item" onClick={() => changeValue("7")}>
             7
           </div>
