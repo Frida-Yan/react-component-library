@@ -123,21 +123,11 @@ const Calculator = () => {
           <div className="item cash" onClick={getMoney}>
             提现
           </div>
-          <div className="item" onClick={() => changeValue("7")}>
-            7
-          </div>
-          <div className="item" onClick={() => changeValue("8")}>
-            8
-          </div>
-          <div className="item" onClick={() => changeValue("9")}>
-            9
-          </div>
-          <div className="item zero" onClick={() => changeValue("0")}>
-            0
-          </div>
-          <div className="item" onClick={() => changeValue(".")}>
-            .
-          </div>
+          {["7", "8", "9", "0", "."].map((item) => (
+            <div className="item" key={item} onClick={() => changeValue(item)}>
+              {item}
+            </div>
+          ))}
         </div>
       </div>
     </div>

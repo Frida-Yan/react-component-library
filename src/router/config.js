@@ -6,6 +6,7 @@ import TagsList from "../page/tagsList";
 import Tooltip from "../page/tooltip";
 import SearchList from "../page/searchList";
 import Calculator from "../page/calculator";
+import Map from "../page/map";
 
 const Router = [
   {
@@ -36,5 +37,9 @@ const Router = [
     path: "/calculator",
     component: Calculator,
   },
+  // {
+  //   path: "/map",
+  //   component: Map,
+  // },
 ];
 export default Router;

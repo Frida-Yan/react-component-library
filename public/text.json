@@ -1,0 +1,85 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "text": "WZ-MD-029"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.53671360015869,
+          31.252139190566062
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "text": "WZ-MD-041"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.53757190704346,
+          31.247406319175877
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "text": "WZ-MD-044"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.54375171661376,
+          31.242306293009186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "text": "WZ-MD-042"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.55254936218262,
+          31.249717751121082
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "text": "规划建设区域"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.54353713989258,
+          31.245168212108464
+        ]
+      }
+    }
+  ]
+}

@@ -24,6 +24,9 @@ const HomePage = (list) => {
         <li>
           <Link to="/calculator">calculator</Link>
         </li>
+        {/* <li>
+          <Link to="/map">map</Link>
+        </li> */}
       </ul>
     </div>
   );

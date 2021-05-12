@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@antv/l7": "^2.3.10",
+    "@antv/l7-maps": "^2.3.10",
+    "@antv/l7-react": "^2.3.0",
     "@babel/core": "7.12.3",
     "@formily/antd": "^1.3.13",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",
@@ -157,5 +160,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "proxy": "http://localhost:3001"
 }
